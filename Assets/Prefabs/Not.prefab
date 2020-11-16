@@ -15,6 +15,7 @@ MonoBehaviour:
   heightOfTheFirstPot: -0.25
   inputsX: -0.5
   outputsX: 0.5
+  putGO: {fileID: 3253237454714419155, guid: 3aa04ef0002bfc4629712681c36e7df4, type: 3}
 --- !u!1001 &2087797245305589112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24,7 +25,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5302858951150369148, guid: 919858dbc5dacd1a99a6ec2e46e337b5, type: 3}
       propertyPath: m_Name
-      value: Gate
+      value: Not
       objectReference: {fileID: 0}
     - target: {fileID: 5302858951150369150, guid: 919858dbc5dacd1a99a6ec2e46e337b5, type: 3}
       propertyPath: m_LocalPosition.x

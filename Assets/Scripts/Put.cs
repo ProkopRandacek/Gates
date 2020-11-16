@@ -2,7 +2,7 @@
 
 public enum PutType { In, Out }
 
-public class Put : MonoBehaviour
+public class Put : MonoBehaviour // {in, out}put => put
 {
     public new string  name = "";
     public     PutType type;

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Gate : MonoBehaviour
 {
     #region Variables
+
     private List<Put>     _inputs  = new List<Put>();
     private List<Put>     _outputs = new List<Put>();
-    private PrefabManager _pm;
     private BodyScaler    _bs;
     private Text          _text;
     private string        _name;
@@ -50,29 +50,31 @@ public class Gate : MonoBehaviour
     public float heightOfTheFirstPot = -0.25f;
     public float inputsX             = -0.5f;
     public float outputsX            = 0.5f;
+
+    public GameObject putGO;
     #endregion
 
     #region Unity Events
 
     private void Start() // This is called between Awake and Start
     {
-        _pm        = PrefabManager.Instance.GetComponent<PrefabManager>();
         _text      = gameObject.GetComponentInChildren<Text>();
         _bs        = gameObject.GetComponentInChildren<BodyScaler>();
         _text.text = _name;
-        
+
         PostStart();
-        
+
         _postStart = true;
         UpdatePutsPosition();
     }
+
     #endregion
 
     #region Public methods
 
     public void AddPut(PutType type, string name = "")
     {
-        GameObject go = Instantiate(_pm.put, transform);
+        GameObject go = Instantiate(putGO, transform);
         go.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         Put newPut = go.GetComponent<Put>();
         newPut.name      = name;
@@ -88,8 +90,7 @@ public class Gate : MonoBehaviour
             throw new Exception($"Unknown PutType value \"{type.ToString()}\"");
         if (_postStart) UpdatePutsPosition();
     }
-    
-    
+
     public List<bool> Evaluate(List<bool> inputs)
     {
         if (inputs.Count != Inputs.Count)
@@ -101,7 +102,6 @@ public class Gate : MonoBehaviour
     #endregion
 
     #region Private Methods
-
     protected virtual void PostStart() { }
 
     private void UpdatePutsPosition()
@@ -109,9 +109,12 @@ public class Gate : MonoBehaviour
         float height = Math.Max(_inputs.Count, _outputs.Count) * 0.5f;
         _bs.SetScale(1.0f, height);
         for (int i = 0; i < _inputs.Count; i++)
-            _inputs[i].gameObject.transform.localPosition = new Vector3(inputsX, heightOfTheFirstPot + (i / 2.0f));
+            _inputs[i].gameObject.transform.localPosition =
+                new Vector3(inputsX, heightOfTheFirstPot + (i / 2.0f), -1.0f);
         for (int i = 0; i < _outputs.Count; i++)
-            _outputs[i].gameObject.transform.localPosition = new Vector3(outputsX, heightOfTheFirstPot + (i / 2.0f));
+            _outputs[i].gameObject.transform.localPosition =
+                new Vector3(outputsX, heightOfTheFirstPot + (i / 2.0f), -1.0f);
     }
+
     #endregion
 }

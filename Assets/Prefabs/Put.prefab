@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3253237454714419119}
   - component: {fileID: 3253237454714419152}
   - component: {fileID: 6563798151704023060}
+  - component: {fileID: 6668778079779941409}
   m_Layer: 0
   m_Name: Put
   m_TagString: Untagged
@@ -98,3 +99,19 @@ MonoBehaviour:
   type: 0
   gate: {fileID: 0}
   connected: {fileID: 0}
+--- !u!58 &6668778079779941409
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3253237454714419155}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6

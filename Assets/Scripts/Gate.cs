@@ -9,8 +9,10 @@ public class Gate : MonoBehaviour
     private List<Put>     _inputs  = new List<Put>();
     private List<Put>     _outputs = new List<Put>();
     private PrefabManager _pm;
+    private BodyScaler    _bs;
     private Text          _text;
     private string        _name;
+    private bool          _postStart = false;
 
     public string Name
     {
@@ -44,14 +46,25 @@ public class Gate : MonoBehaviour
             return true;
         }
     }
+    
+    public float heightOfTheFirstPot = -0.25f;
+    public float inputsX             = -0.5f;
+    public float outputsX            = 0.5f;
     #endregion
 
     #region Unity Events
-    private void Start()
+
+    private void Start() // This is called between Awake and Start
     {
-        _pm        = GameObject.Find("PrefabManager").GetComponent<PrefabManager>();
+        _pm        = PrefabManager.Instance.GetComponent<PrefabManager>();
         _text      = gameObject.GetComponentInChildren<Text>();
+        _bs        = gameObject.GetComponentInChildren<BodyScaler>();
         _text.text = _name;
+        
+        PostStart();
+        
+        _postStart = true;
+        UpdatePutsPosition();
     }
     #endregion
 
@@ -59,7 +72,9 @@ public class Gate : MonoBehaviour
 
     public void AddPut(PutType type, string name = "")
     {
-        Put newPut = Instantiate(_pm.Put).GetComponent<Put>();
+        GameObject go = Instantiate(_pm.put, transform);
+        go.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+        Put newPut = go.GetComponent<Put>();
         newPut.name      = name;
         newPut.type      = type;
         newPut.gate      = this;
@@ -71,7 +86,7 @@ public class Gate : MonoBehaviour
             _outputs.Add(newPut);
         else
             throw new Exception($"Unknown PutType value \"{type.ToString()}\"");
-        UpdatePutsPosition();
+        if (_postStart) UpdatePutsPosition();
     }
     
     
@@ -86,9 +101,17 @@ public class Gate : MonoBehaviour
     #endregion
 
     #region Private Methods
+
+    protected virtual void PostStart() { }
+
     private void UpdatePutsPosition()
     {
-        //TODO
+        float height = Math.Max(_inputs.Count, _outputs.Count) * 0.5f;
+        _bs.SetScale(1.0f, height);
+        for (int i = 0; i < _inputs.Count; i++)
+            _inputs[i].gameObject.transform.localPosition = new Vector3(inputsX, heightOfTheFirstPot + (i / 2.0f));
+        for (int i = 0; i < _outputs.Count; i++)
+            _outputs[i].gameObject.transform.localPosition = new Vector3(outputsX, heightOfTheFirstPot + (i / 2.0f));
     }
     #endregion
 }

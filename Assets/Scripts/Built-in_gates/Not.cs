@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Not : Gate
 {
-    private void Awake()
+    protected override void PostStart()
     {
         AddPut(PutType.In);
         AddPut(PutType.Out);

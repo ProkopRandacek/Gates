@@ -2,21 +2,13 @@
 
 public class PrefabManager: MonoBehaviour 
 {
-    public static PrefabManager Control; // self-reference
+    public static PrefabManager Instance; // self-reference
 
-    private GameObject[] _prefabs;
+    public GameObject put;
+    public GameObject gate;
 
-    public GameObject Put
+    void Awake ()
     {
-        get { return _prefabs[0]; }
-    }
-    public GameObject Gate
-    {
-        get { return _prefabs[1]; }
-    }
-
-    void Start ()
-    {
-        Control = this; // linking the self-reference
+        Instance = this; // linking the self-reference
     }
 }

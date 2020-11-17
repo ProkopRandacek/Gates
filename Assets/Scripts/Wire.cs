@@ -6,6 +6,17 @@ public class Wire : MonoBehaviour
     public Put a;
     public Put b;
 
+    public float width
+    {
+        get
+        {
+            if (a.type == PutType.In)
+                return a.transform.position.x - b.transform.position.x;
+            else
+                return b.transform.position.x - a.transform.position.x;
+        }
+    }
+
     private void Update()
     {
         Draggable aDrag = a.gate.gameObject.GetComponent<Draggable>();
@@ -26,5 +37,27 @@ public class Wire : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle);
         float length = Vector3.Distance(bPos, aPos);
         transform.localScale = new Vector3(length, 1, 1);
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("click");
+        if (a.type == PutType.In)
+        {
+            a.connected = false;
+            a.wires.Remove(this);
+        }
+        else
+            a.wires.Remove(this);
+
+        if (b.type == PutType.In)
+        {
+            b.connected = false;
+            b.wires.Remove(this);
+        }
+        else
+            b.wires.Remove(this);
+        
+        Destroy(gameObject);
     }
 }

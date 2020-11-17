@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum PutType { In, Out }
 
 public class Put : MonoBehaviour // {in, out}put => put
 {
-    public new string  name = "";
-    public     PutType type;
-    public     Gate    gate;
-    public     Put     connected;
-    public     bool ?  Value = null;
+    public new string     name = "";
+    public     PutType    type;
+    public     Gate       gate;
+    public     List<Wire> wires;
+    public     bool       connected;
+    public     bool ?     Value = null;
 
     private MeshRenderer _mr;
     private Wireer       _wireer;

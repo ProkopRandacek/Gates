@@ -31,6 +31,17 @@ public class Gate : MonoBehaviour
     {
         get { return _outputs; }
     }
+
+    public List<Put> Puts
+    {
+        get
+        {
+            List<Put> l = new List<Put>();
+            l.AddRange(Inputs);
+            l.AddRange(Outputs);
+            return l;
+        }
+    }
     public bool Ready // Does this gate has values on all the inputs?
     {
         get
@@ -77,11 +88,12 @@ public class Gate : MonoBehaviour
         GameObject go = Instantiate(putGO, transform);
         go.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         Put newPut = go.GetComponent<Put>();
-        newPut.name      = name;
-        newPut.type      = type;
-        newPut.gate      = this;
-        newPut.connected = null;
-        newPut.Value     = null;
+        newPut.name        = name;
+        newPut.type        = type;
+        newPut.gate        = this;
+        newPut.connected   = false;
+        newPut.wires = new List<Wire>();
+        newPut.Value       = null;
         if (type == PutType.In)
             _inputs.Add(newPut);
         else if (type == PutType.Out)

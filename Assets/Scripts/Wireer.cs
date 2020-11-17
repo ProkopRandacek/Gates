@@ -36,11 +36,11 @@ public class Wireer : MonoBehaviour
 
         if (_selected.type == PutType.Out)
         {
-            if (_selected.transform.position.x >= put.transform.position.x)
+            if (_selected.transform.position.x > put.transform.position.x)
                 return;
         }
         else
-            if (_selected.transform.position.x <= put.transform.position.x)
+            if (_selected.transform.position.x < put.transform.position.x)
                 return;
 
         _selected.Highlight(false);

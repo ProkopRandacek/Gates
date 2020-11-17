@@ -37,8 +37,7 @@ public class Draggable : MonoBehaviour
             foreach (Wire wire in gateOutput.wires)
                 if (wire.width < 0)
                 {
-                    transform.position = new Vector3(Math.Min(wire.a.transform.position.x, wire.b.transform.position.x) - gate.outputsX / 2,
-                                    transform.position.y, transform.position.z);
+                    transform.position = new Vector3(Math.Min(wire.a.transform.position.x, wire.b.transform.position.x) - gate.outputsX / 2, transform.position.y, transform.position.z);
                     moved = true;
                 }
         }
@@ -48,19 +47,16 @@ public class Draggable : MonoBehaviour
             foreach (Wire wire in gateInput.wires)
                 if (wire.width < 0)
                 {
-                    transform.position = new Vector3(Math.Max(wire.a.transform.position.x, wire.b.transform.position.x) - gate.inputsX / 2,
-                                    transform.position.y, transform.position.z);
+                    transform.position = new Vector3(Math.Max(wire.a.transform.position.x, wire.b.transform.position.x) - gate.inputsX / 2, transform.position.y, transform.position.z);
                     moved = true;
                 }
         }
 
         if (moved)
-        {
             foreach (Put gates in gate.Puts)
             {
                 foreach (Wire wire in gates.wires)
                     wire.Move();
             }
-        }
     }
 }

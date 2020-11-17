@@ -6,7 +6,10 @@ public class Wire : MonoBehaviour
     public Put a;
     public Put b;
 
-    public float width
+    /// <summary>
+    /// Distance from Output to Input. When negative, the gate position is very wrong.
+    /// </summary>
+    public float Width
     {
         get
         {
@@ -26,6 +29,9 @@ public class Wire : MonoBehaviour
             Move();
     }
 
+    /// <summary>
+    /// Updates wire position, scale and rotation to connect Input and Output.
+    /// </summary>
     public void Move()
     {
         var aPos = a.transform.position;
@@ -39,7 +45,10 @@ public class Wire : MonoBehaviour
         transform.localScale = new Vector3(length, 1, 1);
     }
 
-    private void OnMouseDown()
+    /// <summary>
+    /// Wire is destroyed on click.
+    /// </summary>
+    private void OnMouseUp()
     {
         if (a.type == PutType.In)
         {

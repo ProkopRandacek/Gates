@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// General logical gate class
+/// </summary>
 public class Gate : MonoBehaviour
 {
     #region Variables
@@ -41,21 +44,6 @@ public class Gate : MonoBehaviour
             return l;
         }
     }
-    public bool Ready // Does this gate has values on all the inputs?
-    {
-        get
-        {
-            foreach (Put input in _inputs)
-            {
-                if (input.Value == null)
-                    return false;
-                if (input.Value == false)
-                    return false;
-            }
-
-            return true;
-        }
-    }
     
     public float heightOfTheFirstPot = -0.25f;
     public float inputsX             = -0.5f;
@@ -66,7 +54,7 @@ public class Gate : MonoBehaviour
 
     #region Unity Events
 
-    private void Start() // This is called between Awake and Start
+    private void Start()
     {
         _text      = gameObject.GetComponentInChildren<Text>();
         _bs        = gameObject.GetComponentInChildren<BodyScaler>();
@@ -82,17 +70,22 @@ public class Gate : MonoBehaviour
 
     #region Public methods
 
+    /// <summary>
+    /// Safe way to add Put to gate
+    /// </summary>
+    /// <param name="type">Type of the put to be added</param>
+    /// <param name="name">Name of the put to be added</param>
     public void AddPut(PutType type, string name = "")
     {
         GameObject go = Instantiate(putGO, transform);
         go.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         Put newPut = go.GetComponent<Put>();
-        newPut.name        = name;
-        newPut.type        = type;
-        newPut.gate        = this;
-        newPut.connected   = false;
-        newPut.wires = new List<Wire>();
-        newPut.Value       = null;
+        newPut.name      = name;
+        newPut.type      = type;
+        newPut.gate      = this;
+        newPut.connected = false;
+        newPut.wires     = new List<Wire>();
+        newPut.value     = false;
         if (type == PutType.In)
             _inputs.Add(newPut);
         else if (type == PutType.Out)
@@ -102,17 +95,20 @@ public class Gate : MonoBehaviour
         if (_postStart) UpdatePutsPosition();
     }
 
-    public List<bool> Evaluate(List<bool> inputs)
-    {
-        if (inputs.Count != Inputs.Count)
-            throw new Exception($"Wrong number of input when evaluating a gate {inputs.Count} instead of {Inputs.Count}");
-        
-        //TODO
-        return inputs;
-    }
+    /// <summary>
+    /// Evaluates the gate output values based on the input values.
+    /// </summary>
+    /// <exception cref="Exception"></exception>
+    public virtual void Evaluate()
+    { }
+    
     #endregion
 
     #region Private Methods
+    
+    /// <summary>
+    /// override in Built-in gates to create Puts and set gate's name
+    /// </summary>
     protected virtual void PostStart() { }
 
     private void UpdatePutsPosition()

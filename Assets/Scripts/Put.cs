@@ -3,14 +3,17 @@ using UnityEngine;
 
 public enum PutType { In, Out }
 
-public class Put : MonoBehaviour // {in, out}put => Put
+/// <summary>
+/// {in, out}put Class
+/// </summary>
+public class Put : MonoBehaviour
 {
     public new string     name = "";
     public     PutType    type;
     public     Gate       gate;
     public     List<Wire> wires;
     public     bool       connected;
-    public     bool ?     Value = null;
+    public     bool       value = false;
 
     private MeshRenderer _mr;
     private Wireer       _wireer;
@@ -28,9 +31,12 @@ public class Put : MonoBehaviour // {in, out}put => Put
         _wireer.PutClicked(this);
     }
 
+    /// <summary>
+    /// Controls this put's highlighting. Used when clicked on a Put to highlight that it is selected
+    /// </summary>
     public void Highlight(bool on)
     {
-        Color     clr = on ? Color.magenta : Color.gray;
+        Color     clr = on ? Color.magenta : Color.gray; // TODO not really visible difference
         Texture2D tex = new Texture2D(1, 1);
         tex.SetPixel(0, 0, clr);
         tex.Apply();

@@ -1,8 +1,17 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Wire-er. Handles wire spawning and puts highlighting in scene.
+/// </summary>
 public class Wireer : MonoBehaviour
 {
+    /// <summary>
+    /// Self-reference
+    /// </summary>
     public static Wireer     Instance;
+    /// <summary>
+    /// Prefab reference
+    /// </summary>
     public        GameObject wire;
 
     private Put _selected;
@@ -12,9 +21,13 @@ public class Wireer : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// Called from a put when it is clicked.
+    /// </summary>
+    /// <param name="put">The clicked put</param>
     public void PutClicked(Put put)
     {
-        if (put.connected)
+        if (put.connected) // Don't select already connected puts
             return;
         
         if (_selected == null)
@@ -24,14 +37,14 @@ public class Wireer : MonoBehaviour
             return;
         }
 
-        if (_selected == put)
+        if (_selected == put) // When clicked the highlighted put, cancel the selection
         {
             _selected.Highlight(false);
             _selected = null;
             return;
         }
 
-        if (put.gate == _selected.gate || put.type == _selected.type)
+        if (put.gate == _selected.gate || put.type == _selected.type) // Don't connect Put of the same type on on the same gate
             return;
 
         if (_selected.type == PutType.Out)

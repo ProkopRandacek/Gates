@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour //TODO
 {
     public static Board Instance;
 

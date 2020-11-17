@@ -1,7 +1,8 @@
-﻿using System;
-using System.Net.Sockets;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Provides safe method to scale the gates without moving in space or any other unintended behaviour.
+/// </summary>
 public class BodyScaler : MonoBehaviour
 {
     public RectTransform canvas;

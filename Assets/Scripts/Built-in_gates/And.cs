@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 public class And : Gate
 {
     protected override void PostStart()
@@ -11,10 +8,8 @@ public class And : Gate
         Name = "AND";
     }
 
-    public new List<bool> Evaluate(List<bool> inputs)
+    public override void Evaluate()
     {
-        if (inputs.Count != 2)
-            throw new Exception($"And gate called with {inputs.Count} inputs instead of 2");
-        return new List<bool> {inputs[0] && inputs[1]};
+        Outputs[0].value = Inputs[0].value && Inputs[1].value;
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 public class Not : Gate
 {
     protected override void PostStart()
@@ -11,10 +8,8 @@ public class Not : Gate
         Name = "NOT";
     }
     
-    public new List<bool> Evaluate(List<bool> inputs)
+    public override void Evaluate()
     {
-        if (inputs.Count != 1)
-            throw new Exception($"Not gate called with {inputs.Count} inputs instead of 1");
-        return new List<bool> {!inputs[0]};
+        Outputs[0].value = !Inputs[0].value;
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 public class Debug : Gate
 {
     protected override void PostStart()
@@ -15,10 +12,9 @@ public class Debug : Gate
         Name = "DBG";
     }
     
-    public new List<bool> Evaluate(List<bool> inputs)
+    public override void Evaluate()
     {
-        if (inputs.Count != 3)
-            throw new Exception($"Debug gate called with {inputs.Count} inputs instead of 3");
-        return inputs;
+        for (int i = 0; i < 3; i++)
+            Outputs[i].value = Inputs[i].value;
     }
 }

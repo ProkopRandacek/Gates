@@ -41,7 +41,6 @@ public class Wire : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("click");
         if (a.type == PutType.In)
         {
             a.connected = false;

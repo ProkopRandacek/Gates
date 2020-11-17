@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum PutType { In, Out }
 
-public class Put : MonoBehaviour // {in, out}put => put
+public class Put : MonoBehaviour // {in, out}put => Put
 {
     public new string     name = "";
     public     PutType    type;
@@ -30,7 +30,7 @@ public class Put : MonoBehaviour // {in, out}put => put
 
     public void Highlight(bool on)
     {
-        Color     clr = on ? Color.green : Color.gray;
+        Color     clr = on ? Color.magenta : Color.gray;
         Texture2D tex = new Texture2D(1, 1);
         tex.SetPixel(0, 0, clr);
         tex.Apply();

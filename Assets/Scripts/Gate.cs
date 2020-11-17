@@ -31,7 +31,6 @@ public class Gate : MonoBehaviour
     {
         get { return _outputs; }
     }
-
     public List<Put> Puts
     {
         get

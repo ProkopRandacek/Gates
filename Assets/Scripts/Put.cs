@@ -23,7 +23,7 @@ public class Put : MonoBehaviour
     private void Start()
     {
         _mr     = gameObject.GetComponent<MeshRenderer>();
-        _wireer = Wireer.Instance;
+        _wireer = Wireer.instance;
     }
 
     private void OnMouseDown()
@@ -40,6 +40,6 @@ public class Put : MonoBehaviour
         Texture2D tex = new Texture2D(1, 1);
         tex.SetPixel(0, 0, clr);
         tex.Apply();
-        _mr.material.SetTexture(MainTex, tex); 
+        _mr.material.SetTexture(MainTex, tex);
     }
 }

@@ -2,13 +2,13 @@
 
 public class Board : MonoBehaviour //TODO
 {
-    public static Board Instance;
+    public static Board instance;
 
     public Transform topRight;
     public Transform bottomLeft;
     
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 }

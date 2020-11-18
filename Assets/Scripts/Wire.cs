@@ -41,14 +41,11 @@ public class Wire : MonoBehaviour
         float xDiff = bPos.x - aPos.x;
         float angle = (float) ((180 / Math.PI) * Math.Atan(yDiff / xDiff));
         transform.eulerAngles = new Vector3(0, 0, angle);
-        float length = Vector3.Distance(bPos, aPos);
+        float length = Vector2.Distance(bPos, aPos);
         transform.localScale = new Vector3(length, 1, 1);
     }
 
-    /// <summary>
-    /// Wire is destroyed on click.
-    /// </summary>
-    private void OnMouseUp()
+    public void Remove()
     {
         if (a.type == PutType.In)
         {
@@ -67,5 +64,13 @@ public class Wire : MonoBehaviour
             b.wires.Remove(this);
         
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Wire is destroyed on click.
+    /// </summary>
+    private void OnMouseUp()
+    {
+        Remove();
     }
 }

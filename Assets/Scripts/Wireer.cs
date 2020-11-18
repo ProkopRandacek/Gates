@@ -8,17 +8,18 @@ public class Wireer : MonoBehaviour
     /// <summary>
     /// Self-reference
     /// </summary>
-    public static Wireer     Instance;
+    public static Wireer instance;
+
     /// <summary>
     /// Prefab reference
     /// </summary>
-    public        GameObject wire;
+    public GameObject wire;
 
     private Put _selected;
     
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
     /// <summary>

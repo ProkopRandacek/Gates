@@ -95,19 +95,41 @@ public class Gate : MonoBehaviour
         if (_postStart) UpdatePutsPosition();
     }
 
+    public void RemovePut(PutType type)
+    {
+        Put toRemove;
+        if (type == PutType.In)
+            toRemove = _inputs[_inputs.Count - 1];
+        else
+            toRemove = _outputs[_outputs.Count - 1];
+
+        for (int i = 0; i < toRemove.wires.Count; i++)
+        {
+            toRemove.wires[i].Remove();
+            i--;
+        }
+
+        if (type == PutType.In)
+            _inputs.Remove(toRemove);
+        else
+            _outputs.Remove(toRemove);
+        
+        Destroy(toRemove.gameObject);
+        UpdatePutsPosition();
+    }
+    
     /// <summary>
     /// Evaluates the gate output values based on the input values.
     /// </summary>
     /// <exception cref="Exception"></exception>
-    public virtual void Evaluate()
-    { }
+    public virtual void Evaluate() { }
     
     #endregion
 
     #region Private Methods
     
     /// <summary>
-    /// override in Built-in gates to create Puts and set gate's name
+    /// Override in Built-in gates to create Puts and set gate's name
     /// </summary>
     protected virtual void PostStart() { }
 

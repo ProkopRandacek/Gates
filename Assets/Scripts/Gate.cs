@@ -75,7 +75,7 @@ public class Gate : MonoBehaviour
     /// </summary>
     /// <param name="type">Type of the put to be added</param>
     /// <param name="name">Name of the put to be added</param>
-    public void AddPut(PutType type, string name = "")
+    public void AddPut(PutType type, string name = "", bool togglable = false)
     {
         GameObject go = Instantiate(putGO, transform);
         go.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
@@ -86,6 +86,7 @@ public class Gate : MonoBehaviour
         newPut.connected = false;
         newPut.wires     = new List<Wire>();
         newPut.value     = false;
+        newPut.toggleable = togglable;
         if (type == PutType.In)
             _inputs.Add(newPut);
         else if (type == PutType.Out)

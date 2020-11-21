@@ -61,6 +61,8 @@ public class Wireer : MonoBehaviour
         put.Highlight(false);
 
         Wire w = Instantiate(wire, transform).GetComponent<Wire>();
+        w.transform.position += Vector3.back;
+
         w.a = _selected;
         w.b = put;
         w.Move();

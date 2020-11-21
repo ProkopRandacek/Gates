@@ -1,3 +1,5 @@
+using System;
+
 public class Not : Gate
 {
     protected override void PostStart()
@@ -11,5 +13,10 @@ public class Not : Gate
     public override void Evaluate()
     {
         Outputs[0].value = !Inputs[0].value;
+    }
+
+    private void Update()
+    {
+        Evaluate();
     }
 }

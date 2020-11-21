@@ -12,4 +12,9 @@ public class And : Gate
     {
         Outputs[0].value = Inputs[0].value && Inputs[1].value;
     }
+    
+    private void Update()
+    {
+        Evaluate();
+    }
 }

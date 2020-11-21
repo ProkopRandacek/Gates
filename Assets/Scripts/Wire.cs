@@ -5,6 +5,14 @@ public class Wire : MonoBehaviour
 {
     public Put a;
     public Put b;
+    public MeshRenderer mr;
+
+    private Draggable    _aDrag;
+    private Draggable    _bDrag;
+    private Texture2D    _on;
+    private Texture2D    _off;
+    
+    private static readonly int MainTex = Shader.PropertyToID("_MainTex");
 
     /// <summary>
     /// Distance from Output to Input. When negative, the gate position is very wrong.
@@ -20,13 +28,30 @@ public class Wire : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _aDrag = a.gate.gameObject.GetComponent<Draggable>();
+        _bDrag = b.gate.gameObject.GetComponent<Draggable>();
+        
+        _on    = new Texture2D(1, 1);
+        _off   = new Texture2D(1, 1);
+        _on.SetPixel(0, 0, Color.yellow);
+        _off.SetPixel(0, 0, Color.black);
+        _on.Apply();
+        _off.Apply();
+        mr.material.SetTexture(MainTex, _off);
+    }
+
     private void Update()
     {
-        Draggable aDrag = a.gate.gameObject.GetComponent<Draggable>();
-        Draggable bDrag = b.gate.gameObject.GetComponent<Draggable>();
-
-        if (aDrag.dragging || bDrag.dragging)
+        if (_aDrag.dragging || _bDrag.dragging)
             Move();
+        if (a.type == PutType.Out)
+            b.value = a.value;
+        if (b.type == PutType.Out)
+            a.value = b.value;
+
+        mr.material.SetTexture(MainTex, a.value ? _on : _off);
     }
 
     /// <summary>
@@ -36,7 +61,7 @@ public class Wire : MonoBehaviour
     {
         var aPos = a.transform.position;
         var bPos = b.transform.position;
-        transform.position = (bPos + aPos) / 2; // average
+        transform.position = (bPos + aPos) / 2; // average position
         float yDiff = bPos.y - aPos.y;
         float xDiff = bPos.x - aPos.x;
         float angle = (float) ((180 / Math.PI) * Math.Atan(yDiff / xDiff));
@@ -62,6 +87,9 @@ public class Wire : MonoBehaviour
         }
         else
             b.wires.Remove(this);
+
+        a.value = false;
+        b.value = false;
         
         Destroy(gameObject);
     }

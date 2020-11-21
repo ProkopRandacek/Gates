@@ -13,7 +13,8 @@ public class Put : MonoBehaviour
     public     Gate       gate;
     public     List<Wire> wires;
     public     bool       connected;
-    public     bool       value = false;
+    public     bool       value;
+    public     bool       toggleable;
 
     private MeshRenderer _mr;
     private Wireer       _wireer;
@@ -28,7 +29,10 @@ public class Put : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _wireer.PutClicked(this);
+        if (toggleable)
+            value = !value;
+        else
+            _wireer.PutClicked(this);
     }
 
     /// <summary>

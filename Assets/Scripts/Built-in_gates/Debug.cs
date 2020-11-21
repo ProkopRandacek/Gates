@@ -1,3 +1,5 @@
+using System;
+
 public class Debug : Gate
 {
     protected override void PostStart()
@@ -16,5 +18,10 @@ public class Debug : Gate
     {
         for (int i = 0; i < 3; i++)
             Outputs[i].value = Inputs[i].value;
+    }
+
+    private void Update()
+    {
+        Evaluate();
     }
 }
